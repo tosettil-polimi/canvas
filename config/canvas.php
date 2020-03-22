@@ -92,4 +92,19 @@ return [
         'enabled' => env('CANVAS_MAIL_ENABLED', false),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | RSS Feed
+    |--------------------------------------------------------------------------
+    |
+    | @todo: finish the description
+    |
+    */
+
+    'feed' => [
+        'enabled' => env('CANVAS_FEED_ENABLED', false),
+
+        'path' => env('CANVAS_FEED_PATH', 'feed'),
+    ]
+
 ];
