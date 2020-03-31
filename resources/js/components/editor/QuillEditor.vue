@@ -180,7 +180,7 @@
             return {
                 editor: null,
                 controlIsActive: false,
-                trans: JSON.parse(Canvas.lang),
+                trans: JSON.parse(Canvas.translations),
             }
         },
 

@@ -138,7 +138,7 @@
                 visitCount: 0,
                 visitTrend: {},
                 isReady: false,
-                trans: JSON.parse(Canvas.lang),
+                trans: JSON.parse(Canvas.translations),
             }
         },
 

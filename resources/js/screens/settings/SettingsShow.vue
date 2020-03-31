@@ -96,6 +96,39 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="d-flex border-top p-3 align-items-center">
+                            <div class="mr-auto py-1">
+                                <p class="mb-1 font-weight-bold text-lg lead">
+                                    {{ trans.app.locale }}
+                                </p>
+                                <p class="mb-1 d-none d-lg-block">
+                                    {{ trans.app.select_your_language_or_region }}
+                                </p>
+                            </div>
+                            <div class="ml-auto pl-3">
+                                <div class="align-middle">
+                                    <div class="form-group row mt-3">
+                                        <div class="col-12">
+                                            <select
+                                                :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
+                                                class="custom-select border-0"
+                                                @change="updateLocale"
+                                                v-model="form.locale"
+                                                name="locale">
+                                                <option
+                                                    v-for="(locale, code) in Canvas.languageCodes"
+                                                    :key="code"
+                                                    :value="code"
+                                                    :selected="Canvas.locale === code">
+                                                    {{ locale }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -129,6 +162,7 @@
                     username: null,
                     summary: null,
                     avatar: null,
+                    locale: Canvas.locale,
                     digest: false,
                     darkMode: 0,
                     errors: [],
@@ -137,7 +171,7 @@
                 },
                 user: Canvas.user,
                 isReady: false,
-                trans: JSON.parse(Canvas.lang),
+                trans: JSON.parse(Canvas.translations),
             }
         },
 
@@ -213,7 +247,7 @@
                 screen.animate({
                     opacity: 0,
                     backgroundColor: 'rgb(38, 50, 56)'
-                }, 300, function() {
+                }, 300, function () {
 
                     // todo: There has to be a better way to swap stylesheets than this
                     if (isDark) {
@@ -228,7 +262,7 @@
                 screen.animate({
                     opacity: 1,
                     backgroundColor: 'rgb(38, 50, 56)'
-                }, 300, function() {
+                }, 300, function () {
                     //
                 })
 
@@ -238,12 +272,26 @@
             },
 
             showProfileModal() {
+                this.$emit('openingProfileModal', { trans: this.trans })
                 $(this.$refs.profileModal.$el).modal('show')
             },
 
-            hideProfileModal() {
-                $(this.$refs.profileModal.$el).modal('hide')
-            },
+            updateLocale() {
+                this.request()
+                    .post('/api/locale', { locale: this.form.locale })
+                    .then(response => {
+                        this.trans = response.data
+                        this.$root.Canvas.translations = JSON.stringify(response.data)
+                        this.$root.Canvas.locale = this.form.locale
+                    })
+                    .catch(error => {
+                        //
+                    })
+
+                this.saveData({
+                    locale: this.form.locale
+                }, false)
+            }
         },
     }
 </script>

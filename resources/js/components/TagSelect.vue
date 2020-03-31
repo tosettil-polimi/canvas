@@ -46,7 +46,7 @@
             return {
                 options: allTags,
                 value: this.tagged ? this.tagged : [],
-                trans: JSON.parse(Canvas.lang),
+                trans: JSON.parse(Canvas.translations),
             }
         },
 

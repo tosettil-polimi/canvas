@@ -46,7 +46,7 @@
             return {
                 options: allTopics,
                 value: this.assigned ? this.assigned : [],
-                trans: JSON.parse(Canvas.lang),
+                trans: JSON.parse(Canvas.translations),
             }
         },
 

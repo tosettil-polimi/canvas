@@ -39,18 +39,20 @@
                         @processfile="processedFromFilePond"
                         @removefile="removedFromFilePond"/>
 
-                    <div v-if="!isReadyToAcceptUploads" class="d-flex justify-content-center bg-black">
-                        <button @click.prevent="clearAvatar" type="button" class="close position-absolute d-block align-self-center" data-dismiss="modal" aria-label="Close">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" class="icon-trash">
+                    <div v-if="!isReadyToAcceptUploads"
+                         class="d-flex justify-content-center rounded p-3 position-relative d-inline-block"
+                         :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'">
+                        <button @click.prevent="clearAvatar" type="button" class="close position-absolute" style="top: 0; right: 0" data-dismiss="modal" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" class="icon-trash m-3">
                                 <path class="primary" d="M5 5h14l-.89 15.12a2 2 0 0 1-2 1.88H7.9a2 2 0 0 1-2-1.88L5 5zm5 5a1 1 0 0 0-1 1v6a1 1 0 0 0 2 0v-6a1 1 0 0 0-1-1zm4 0a1 1 0 0 0-1 1v6a1 1 0 0 0 2 0v-6a1 1 0 0 0-1-1z"/>
                                 <path class="primary" d="M8.59 4l1.7-1.7A1 1 0 0 1 11 2h2a1 1 0 0 1 .7.3L15.42 4H19a1 1 0 0 1 0 2H5a1 1 0 1 1 0-2h3.59z"/>
                             </svg>
                         </button>
 
-                        <img :src="avatar" class="w-50 rounded-circle shadow-inner mb-3 h-100"/>
+                        <img :src="avatar" class="w-50 rounded-circle shadow-inner h-100"/>
                     </div>
 
-                    <div class="form-group row">
+                    <div class="form-group row mt-3">
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">
                                 {{ trans.app.username }}
@@ -156,8 +158,16 @@
                 maxUploadFilesize: Canvas.maxUpload,
                 path: Canvas.path,
                 user: Canvas.user,
-                trans: JSON.parse(Canvas.lang),
+                trans: JSON.parse(Canvas.translations),
             }
+        },
+
+        mounted() {
+            this.$parent.$on('openingProfileModal', data => {
+                if (!isEmpty(data)) {
+                    this.trans = data.trans
+                }
+            })
         },
 
         methods: {

@@ -150,7 +150,7 @@
                 galleryModalClasses: ['modal-xl', 'modal-dialog-scrollable'],
                 maxUploadFilesize: Canvas.maxUpload,
                 path: Canvas.path,
-                trans: JSON.parse(Canvas.lang),
+                trans: JSON.parse(Canvas.translations),
             }
         },
 

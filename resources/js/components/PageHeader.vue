@@ -69,7 +69,7 @@
                 user: Canvas.user,
                 avatar: this.$root.avatar,
                 token: this.getToken(),
-                trans: JSON.parse(Canvas.lang),
+                trans: JSON.parse(Canvas.translations),
             }
         },
 

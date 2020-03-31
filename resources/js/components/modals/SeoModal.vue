@@ -111,7 +111,7 @@
 
         data() {
             return {
-                trans: JSON.parse(Canvas.lang),
+                trans: JSON.parse(Canvas.translations),
             }
         },
 

@@ -51,7 +51,7 @@
             return {
                 blot: null,
                 content: null,
-                trans: JSON.parse(Canvas.lang),
+                trans: JSON.parse(Canvas.translations),
             }
         },
 

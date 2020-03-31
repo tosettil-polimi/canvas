@@ -85,7 +85,7 @@
             return {
                 page: 1,
                 tags: [],
-                trans: JSON.parse(Canvas.lang),
+                trans: JSON.parse(Canvas.translations),
             }
         },
 

@@ -88,7 +88,7 @@
             return {
                 page: 1,
                 topics: [],
-                trans: JSON.parse(Canvas.lang),
+                trans: JSON.parse(Canvas.translations),
             }
         },
 

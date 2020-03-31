@@ -205,7 +205,7 @@ Since the weekly digest runs on [Laravel's Scheduler](https://laravel.com/docs/m
 ## Updates
 
 Canvas loosely follows [Semantic Versioning](https://semver.org/) and increments versions as `MAJOR.MINOR.PATCH` numbers
-- A major or minor version _can contain breaking changes_, so follow the [upgrade guide](.github/CHANGELOG.md) for a step-by-step breakdown
+- A major or minor version _can contain breaking changes_, so follow the [upgrade guide](.github/UPGRADE.md) for a step-by-step breakdown
 - Patch versions will remain backwards compatible, so you can safely update the package by following the steps below:
 
 You may update your Canvas installation using composer:

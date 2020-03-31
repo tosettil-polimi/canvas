@@ -87,10 +87,10 @@ class TrackerTest extends TestCase
     }
 
     /** @test */
-    public function evaluates_month_to_month_visitor_performance()
+    public function evaluates_month_to_month_increased_visitor_performance()
     {
         factory(Visit::class, 1)->create([
-            'created_at' => today()->subMonth()->toDateString(),
+            'created_at' => today()->subMonthWithoutOverflow()->toDateString(),
         ]);
 
         factory(Visit::class, 2)->create([
@@ -99,8 +99,8 @@ class TrackerTest extends TestCase
 
         $visits = Visit::all();
         $previousMonthlyVisits = $visits->whereBetween('created_at', [
-            today()->subMonth()->startOfMonth()->startOfDay()->toDateTimeString(),
-            today()->subMonth()->endOfMonth()->endOfDay()->toDateTimeString(),
+            today()->subMonthWithoutOverflow()->startOfMonth()->startOfDay()->toDateTimeString(),
+            today()->subMonthWithoutOverflow()->endOfMonth()->endOfDay()->toDateTimeString(),
         ]);
         $currentMonthlyVisits = $visits->whereBetween('created_at', [
             today()->startOfMonth()->startOfDay()->toDateTimeString(),
@@ -117,33 +117,32 @@ class TrackerTest extends TestCase
     }
 
     /** @test */
-    public function evaluates_month_to_month_decreased_view_performance()
+    public function evaluates_month_to_month_decreased_visitor_performance()
     {
-        factory(View::class, 2)->create([
-            'created_at' => today()->subMonth()->toDateString(),
+        factory(Visit::class, 2)->create([
+            'created_at' => today()->subMonthWithoutOverflow()->toDateString(),
         ]);
 
-        factory(View::class, 1)->create([
+        factory(Visit::class, 1)->create([
             'created_at' => today()->toDateString(),
         ]);
 
-        $views = View::all();
-        $previousMonthlyViews = $views->whereBetween('created_at', [
-            today()->subMonth()->startOfMonth()->startOfDay()->toDateTimeString(),
-            today()->subMonth()->endOfMonth()->endOfDay()->toDateTimeString(),
+        $visits = Visit::all();
+        $previousMonthlyVisits = $visits->whereBetween('created_at', [
+            today()->subMonthWithoutOverflow()->startOfMonth()->startOfDay()->toDateTimeString(),
+            today()->subMonthWithoutOverflow()->endOfMonth()->endOfDay()->toDateTimeString(),
         ]);
-        $currentMonthlyViews = $views->whereBetween('created_at', [
+        $currentMonthlyVisits = $visits->whereBetween('created_at', [
             today()->startOfMonth()->startOfDay()->toDateTimeString(),
             today()->endOfMonth()->endOfDay()->toDateTimeString(),
         ]);
 
-        $data = $this->compareMonthToMonth($currentMonthlyViews, $previousMonthlyViews);
+        $data = $this->compareMonthToMonth($currentMonthlyVisits, $previousMonthlyVisits);
 
         $this->assertArrayHasKey('direction', $data);
         $this->assertEquals($data['direction'], 'down');
 
         $this->assertArrayHasKey('percentage', $data);
-        $this->assertFalse($data['percentage'] < 0);
         $this->assertEquals($data['percentage'], '50');
     }
 
@@ -151,7 +150,7 @@ class TrackerTest extends TestCase
     public function evaluates_month_to_month_increased_view_performance()
     {
         factory(View::class, 1)->create([
-            'created_at' => today()->subMonth()->toDateString(),
+            'created_at' => today()->subMonthWithoutOverflow()->toDateString(),
         ]);
 
         factory(View::class, 2)->create([
@@ -160,8 +159,8 @@ class TrackerTest extends TestCase
 
         $views = View::all();
         $previousMonthlyViews = $views->whereBetween('created_at', [
-            today()->subMonth()->startOfMonth()->startOfDay()->toDateTimeString(),
-            today()->subMonth()->endOfMonth()->endOfDay()->toDateTimeString(),
+            today()->subMonthWithoutOverflow()->startOfMonth()->startOfDay()->toDateTimeString(),
+            today()->subMonthWithoutOverflow()->endOfMonth()->endOfDay()->toDateTimeString(),
         ]);
         $currentMonthlyViews = $views->whereBetween('created_at', [
             today()->startOfMonth()->startOfDay()->toDateTimeString(),
@@ -174,8 +173,37 @@ class TrackerTest extends TestCase
         $this->assertEquals($data['direction'], 'up');
 
         $this->assertArrayHasKey('percentage', $data);
-        $this->assertFalse($data['percentage'] < 0);
         $this->assertEquals($data['percentage'], '100');
+    }
+
+    /** @test */
+    public function evaluates_month_to_month_decreased_view_performance()
+    {
+        factory(View::class, 2)->create([
+            'created_at' => today()->subMonthWithoutOverflow()->toDateString(),
+        ]);
+
+        factory(View::class, 1)->create([
+            'created_at' => today()->toDateString(),
+        ]);
+
+        $views = View::all();
+        $previousMonthlyViews = $views->whereBetween('created_at', [
+            today()->subMonthWithoutOverflow()->startOfMonth()->startOfDay()->toDateTimeString(),
+            today()->subMonthWithoutOverflow()->endOfMonth()->endOfDay()->toDateTimeString(),
+        ]);
+        $currentMonthlyViews = $views->whereBetween('created_at', [
+            today()->startOfMonth()->startOfDay()->toDateTimeString(),
+            today()->endOfMonth()->endOfDay()->toDateTimeString(),
+        ]);
+
+        $data = $this->compareMonthToMonth($currentMonthlyViews, $previousMonthlyViews);
+
+        $this->assertArrayHasKey('direction', $data);
+        $this->assertEquals($data['direction'], 'down');
+
+        $this->assertArrayHasKey('percentage', $data);
+        $this->assertEquals($data['percentage'], '50');
     }
 
     /** @test */

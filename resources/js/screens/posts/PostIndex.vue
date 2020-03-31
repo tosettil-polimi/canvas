@@ -13,7 +13,7 @@
                 <div class="d-flex justify-content-between my-3">
                     <h1>{{ trans.app.posts_simple }}</h1>
 
-                    <select name="" id="" v-model="postType" @change="changeType" class="my-auto bg-transparent appearance-none border-0 text-muted">
+                    <select name="" id="" v-model="postType" @change="changeType" class="my-auto ml-auto w-auto bg-transparent custom-select border-0">
                         <option value="published">{{ trans.app.published }} ({{ publishedCount }})</option>
                         <option value="draft">{{ trans.app.draft }} ({{ draftCount }})</option>
                     </select>
@@ -113,7 +113,7 @@
                 draftCount: 0,
                 postType: 'published',
                 infiniteId: +new Date(),
-                trans: JSON.parse(Canvas.lang),
+                trans: JSON.parse(Canvas.translations),
             }
         },
 
