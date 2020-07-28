@@ -1,9 +1,9 @@
 <?php
 
-namespace Canvas\Tests\Middleware;
+namespace Canvas\Tests\Http\Middleware;
 
 use Canvas\Http\Middleware\Session;
-use Canvas\Post;
+use Canvas\Models\Post;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -29,47 +29,44 @@ class SessionTest extends TestCase
     }
 
     /** @test */
-    public function prunes_expired_views_in_session()
+    public function it_can_prune_expired_views()
     {
-        $post_1 = factory(Post::class)->create();
-        $key_1 = 'viewed_posts.'.$post_1->id;
+        $recent = factory(Post::class)->create();
 
-        session()->put($key_1, now()->timestamp);
+        session()->put('viewed_posts.'.$recent->id, now()->timestamp);
 
-        $post_2 = factory(Post::class)->create();
-        $key_2 = 'viewed_posts.'.$post_2->id;
+        $old = factory(Post::class)->create();
 
-        session()->put($key_2, now()->subHours(2)->timestamp);
+        session()->put('viewed_posts.'.$old->id, now()->subHour()->subMinute()->timestamp);
 
         $this->invokeMethod($this->instance, 'pruneExpiredViews', [collect(session()->get('viewed_posts'))]);
 
-        $this->assertArrayHasKey($post_1->id, session()->get('viewed_posts'));
-        $this->assertArrayNotHasKey($post_2->id, session()->get('viewed_posts'));
+        $this->assertArrayHasKey($recent->id, session()->get('viewed_posts'));
+        $this->assertArrayNotHasKey($old->id, session()->get('viewed_posts'));
     }
 
     /** @test */
-    public function prunes_expired_visits_in_session()
+    public function it_can_prune_expired_visits()
     {
         $ip = '127.0.0.1';
-        $post_1 = factory(Post::class)->create();
-        $key_1 = 'visited_posts.'.$post_1->id;
 
-        session()->put($key_1, [
+        $recent = factory(Post::class)->create();
+
+        session()->put('visited_posts.'.$recent->id, [
             'timestamp' => now()->timestamp,
             'ip' => $ip,
         ]);
 
-        $post_2 = factory(Post::class)->create();
-        $key_2 = 'visited_posts.'.$post_2->id;
+        $old = factory(Post::class)->create();
 
-        session()->put($key_2, [
+        session()->put('visited_posts.'.$old->id, [
             'timestamp' => now()->subDay()->timestamp,
             'ip' => $ip,
         ]);
 
         $this->invokeMethod($this->instance, 'pruneExpiredVisits', [collect(session()->get('visited_posts'))]);
 
-        $this->assertArrayHasKey($post_1->id, session()->get('visited_posts'));
-        $this->assertArrayNotHasKey($post_2->id, session()->get('visited_posts'));
+        $this->assertArrayHasKey($recent->id, session()->get('visited_posts'));
+        $this->assertArrayNotHasKey($old->id, session()->get('visited_posts'));
     }
 }

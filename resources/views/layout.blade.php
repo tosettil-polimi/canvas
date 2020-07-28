@@ -8,28 +8,17 @@
 
     <title>{{ config('app.name') }} ― Canvas</title>
 
-    @if($scripts['darkMode'])
-        <link rel="stylesheet" id="baseStylesheet" type="text/css" href="{{ mix('css/app-dark.css', 'vendor/canvas') }}">
-        <link rel="stylesheet" id="highlightStylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/sunburst.min.css">
-    @else
-        <link rel="stylesheet" id="baseStylesheet" type="text/css" href="{{ mix('css/app.css', 'vendor/canvas') }}">
-        <link rel="stylesheet" id="highlightStylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/github.min.css">
-    @endif
-
-    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
-    <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
+    <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css', 'vendor/canvas') }}">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Karla|Merriweather:400,700">
-
     <link rel="shortcut icon" href="{{ mix('favicon.ico', 'vendor/canvas') }}">
 </head>
-<body class="mb-5">
+<body class="mb-5" @if($config['user']['darkMode']) data-theme="dark" @endif>
 <div id="canvas">
-    @if(!$assetsUpToDate)
+    @if(!\Canvas\Helpers\Asset::upToDate())
        <div class="alert alert-danger border-0 text-center rounded-0 mb-0">
-           {{ __('canvas::app.assets_are_not_up_to_date') }}
-           {{ __('canvas::app.to_update_run') }}<br/><code>php artisan canvas:publish</code>
+           {{ trans('canvas::app.assets_are_not_up_to_date') }}
+           {{ trans('canvas::app.to_update_run') }}<br/><code>php artisan canvas:publish</code>
        </div>
     @endif
 
@@ -37,7 +26,7 @@
 </div>
 
 <script>
-    window.Canvas = @json($scripts);
+    window.Canvas = @json($config);
 </script>
 
 <script type="text/javascript" src="{{ mix('js/app.js', 'vendor/canvas') }}"></script>

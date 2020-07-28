@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 /*
  |--------------------------------------------------------------------------
@@ -16,15 +17,20 @@ mix.options({
         uglifyOptions: {
             compress: {
                 drop_console: true,
-            }
-        }
-    }
+            },
+        },
+    },
 });
 
 mix.setPublicPath('public')
     .setResourceRoot('../')
+    // .webpackConfig({
+    //     plugins: [
+    //         new BundleAnalyzerPlugin(),
+    //     ],
+    // })
     .js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    .sass('resources/sass/app-dark.scss', 'public/css')
     .copy('resources/favicon.ico', 'public')
-    .version();
+    .version()
+    .sourceMaps();

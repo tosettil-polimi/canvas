@@ -1,6 +1,6 @@
-import Quill from 'quill'
+import Quill from 'quill';
 
-let BlockEmbed = Quill.import('blots/block/embed')
+let BlockEmbed = Quill.import('blots/block/embed');
 
 /**
  * Supported embeddable link types:
@@ -36,8 +36,8 @@ class EmbedVideoBlot extends BlockEmbed {
             let nodeDefault = document.createElement('p');
             let textDeafult = document.createTextNode(url);
 
-            nodeDefault.appendChild(textDeafult)
-            node.appendChild(nodeDefault)
+            nodeDefault.appendChild(textDeafult);
+            node.appendChild(nodeDefault);
         }
 
         return node;
@@ -64,22 +64,20 @@ class EmbedVideoBlot extends BlockEmbed {
  * @link https://gist.github.com/yangshun/9892961
  */
 function parseVideo(url) {
-    url.match(/(http:|https:|)\/\/(player.|www.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com))\/(video\/|embed\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(\&\S+)?/);
+    url.match(
+        /(http:|https:|)\/\/(player.|www.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com))\/(video\/|embed\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(&\S+)?/
+    );
 
-    if (RegExp.$3.indexOf('youtu') > -1) {
-        var type = 'youtube';
-    } else if (RegExp.$3.indexOf('vimeo') > -1) {
-        var type = 'vimeo';
-    }
+    let type = RegExp.$3.indexOf('youtu') > -1 ? 'youtube' : 'vimeo';
 
     return {
         type: type,
-        id: RegExp.$6
+        id: RegExp.$6,
     };
 }
 
 EmbedVideoBlot.tagName = 'div';
 EmbedVideoBlot.blotName = 'embed-video';
-EmbedVideoBlot.className = 'ql-embed-video'
+EmbedVideoBlot.className = 'ql-embed-video';
 
-export default EmbedVideoBlot
+export default EmbedVideoBlot;

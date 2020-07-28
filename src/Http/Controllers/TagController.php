@@ -2,7 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Tag;
+use Canvas\Models\Tag;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -12,67 +12,57 @@ use Ramsey\Uuid\Uuid;
 class TagController extends Controller
 {
     /**
-     * Get all the tags.
+     * Display a listing of the resource.
      *
      * @return JsonResponse
      */
     public function index(): JsonResponse
     {
         return response()->json(
-            Tag::forCurrentUser()
-               ->latest()
+            Tag::latest()
                ->withCount('posts')
                ->paginate(), 200
         );
     }
 
     /**
-     * Get a single tag or return a UUID to create one.
+     * Show the form for creating a new resource.
      *
-     * @param null $id
      * @return JsonResponse
-     * @throws Exception
      */
-    public function show($id = null): JsonResponse
+    public function create(): JsonResponse
     {
-        if (Tag::forCurrentUser()->pluck('id')->contains($id) || $this->isNewTag($id)) {
-            if ($this->isNewTag($id)) {
-                return response()->json(Tag::make([
-                    'id' => Uuid::uuid4(),
-                ]), 200);
-            } else {
-                $tag = Tag::find($id);
-
-                if ($tag) {
-                    return response()->json($tag, 200);
-                } else {
-                    return response()->json(null, 301);
-                }
-            }
-        }
+        return response()->json(Tag::make([
+            'id' => Uuid::uuid4()->toString(),
+        ]), 200);
     }
 
     /**
-     * Create or update a tag.
+     * Store a newly created resource in storage.
      *
-     * @param string $id
+     * @param $id
      * @return JsonResponse
      */
-    public function store(string $id): JsonResponse
+    public function store($id): JsonResponse
     {
+        $tag = Tag::find($id);
+
+        if (! $tag) {
+            if ($tag = Tag::onlyTrashed()->firstWhere('slug', request('slug'))) {
+                $tag->restore();
+            } else {
+                $tag = new Tag(['id' => $id]);
+            }
+        }
+
         $data = [
-            'id' => request('id'),
+            'id' => $id,
             'name' => request('name'),
             'slug' => request('slug'),
             'user_id' => request()->user()->id,
         ];
 
-        $messages = [
-            'required' => __('canvas::app.validation_required'),
-            'unique' => __('canvas::app.validation_unique'),
-        ];
-
-        validator($data, [
+        $rules = [
             'name' => 'required',
             'slug' => [
                 'required',
@@ -81,49 +71,62 @@ class TagController extends Controller
                     return $query->where('slug', $data['slug'])->where('user_id', $data['user_id']);
                 })->ignore($id)->whereNull('deleted_at'),
             ],
-        ], $messages)->validate();
+        ];
 
-        if ($this->isNewTag($id)) {
-            if ($tag = Tag::onlyTrashed()->where('slug', $data['slug'])->first()) {
-                $tag->restore();
-            } else {
-                $tag = new Tag(['id' => $data['id']]);
-            }
-        } else {
-            $tag = Tag::find($id);
-        }
+        $messages = [
+            'required' => trans('canvas::app.validation_required', [], optional($tag->userMeta)->locale),
+            'unique' => trans('canvas::app.validation_unique', [], optional($tag->userMeta)->locale),
+        ];
+
+        validator($data, $rules, $messages)->validate();
 
         $tag->fill($data);
+
         $tag->save();
 
         return response()->json($tag->refresh(), 201);
     }
 
     /**
-     * Delete a tag.
+     * Display the specified resource.
      *
-     * @param string $id
-     * @return mixed
+     * @param $id
+     * @return JsonResponse
+     * @throws Exception
      */
-    public function destroy(string $id)
+    public function show($id): JsonResponse
     {
         $tag = Tag::find($id);
 
-        if ($tag) {
-            $tag->delete();
-
-            return response()->json([], 204);
-        }
+        return $tag ? response()->json($tag, 200) : response()->json(null, 404);
     }
 
     /**
-     * Return true if we're creating a new tag.
+     * Display the specified relationship.
      *
-     * @param string $id
-     * @return bool
+     * @param $id
+     * @return JsonResponse
+     * @throws Exception
      */
-    private function isNewTag(string $id): bool
+    public function showPosts($id): JsonResponse
     {
-        return $id === 'create';
+        $tag = Tag::with('posts')->find($id);
+
+        return $tag ? response()->json($tag->posts()->withCount('views')->paginate(), 200) : response()->json(null, 200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function destroy($id)
+    {
+        $tag = Tag::findOrFail($id);
+
+        $tag->delete();
+
+        return response()->json(null, 204);
     }
 }

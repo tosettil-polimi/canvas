@@ -1,7 +1,7 @@
 <?php
 
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(\Canvas\Post::class, function (Faker\Generator $faker) {
+$factory->define(\Canvas\Models\Post::class, function (Faker\Generator $faker) {
     return [
         'id' => $faker->uuid,
         'slug' => $faker->slug,
@@ -12,7 +12,7 @@ $factory->define(\Canvas\Post::class, function (Faker\Generator $faker) {
         'featured_image' => $faker->imageUrl(),
         'featured_image_caption' => $faker->sentence,
         'user_id' => function () {
-            return \Illuminate\Foundation\Auth\User::all()->first()->id ?? factory(\Illuminate\Foundation\Auth\User::class)->create()->id;
+            return factory(config('canvas.user'))->create()->id;
         },
         'meta' => [
             'title' => $faker->sentence,

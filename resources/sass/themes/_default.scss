@@ -1,0 +1,68 @@
+@import "../utilities/variables";
+
+body {
+    background-color: $body--bg;
+    color: $body--color;
+
+    a, a:hover {
+        color: $body--color;
+    }
+
+    .card {
+        border: 1px solid $gray-200 !important;
+    }
+
+    .dropdown-menu {
+        border: 1px solid $gray-200;
+        box-shadow: $box-shadow-lg;
+
+        & .dropdown-item:active {
+            color: $body--color;
+            background-color: $gray-100;
+        }
+    }
+
+    .border-top {
+        border-top: 1px solid $gray-200 !important;
+    }
+
+    .text-muted {
+        color: $text--muted;
+    }
+
+    .controls {
+        background-color: $body--bg;
+    }
+
+    .navbar-mini {
+        background-color: $body--bg;
+    }
+
+    .form-control, .input-group-text, .custom-select {
+        background-color: $gray-100 !important;
+    }
+
+    .filepond--panel-root {
+        background-color: $gray-100 !important;
+    }
+
+    .hover-bg {
+        background-color: $gray-100;
+    }
+
+    .fill-bg {
+        fill: $body--bg;
+    }
+
+    .fill-body-color {
+        fill: $body--color;
+    }
+
+    .fill-muted {
+        fill: $text--muted;
+    }
+
+    .fill-logo {
+        fill: $gray-500;
+    }
+}

@@ -5,7 +5,10 @@ namespace Canvas\Tests;
 use Canvas\CanvasServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\TestResponse as LegacyTestResponse;
+use Illuminate\Testing\TestResponse;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use PHPUnit\Framework\Assert as PHPUnit;
 use ReflectionClass;
 use ReflectionException;
 
@@ -76,7 +79,7 @@ abstract class TestCase extends OrchestraTestCase
     {
         $this->loadLaravelMigrations();
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        $this->loadFactoriesUsing($this->app, __DIR__.'/../database/factories');
+        $this->loadFactoriesUsing($app, __DIR__.'/../database/factories');
 
         $this->artisan('migrate');
     }
@@ -97,5 +100,32 @@ abstract class TestCase extends OrchestraTestCase
         $method->setAccessible(true);
 
         return $method->invokeArgs($object, $parameters);
+    }
+
+    /**
+     * Register an exact JSON fragment assertion.
+     *
+     * @return void
+     */
+    protected function registerAssertJsonExactFragmentMacro()
+    {
+        $assertion = function ($expected, $key) {
+            $jsonResponse = $this->json();
+
+            PHPUnit::assertEquals(
+                $expected,
+                $actualValue = data_get($jsonResponse, $key),
+                "Failed asserting that [$actualValue] matches expected [$expected].".PHP_EOL.PHP_EOL.
+                json_encode($jsonResponse)
+            );
+
+            return $this;
+        };
+
+        if (Application::VERSION === '7.x-dev' || version_compare(Application::VERSION, '7.0', '>=')) {
+            TestResponse::macro('assertJsonExactFragment', $assertion);
+        } else {
+            LegacyTestResponse::macro('assertJsonExactFragment', $assertion);
+        }
     }
 }

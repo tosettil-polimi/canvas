@@ -5,14 +5,15 @@ namespace Canvas;
 use Canvas\Console\DigestCommand;
 use Canvas\Console\InstallCommand;
 use Canvas\Console\PublishCommand;
+use Canvas\Events\PostViewed;
+use Canvas\Listeners\CaptureView;
+use Canvas\Listeners\CaptureVisit;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 
 class CanvasServiceProvider extends ServiceProvider
 {
-    use EventMap;
-
     /**
      * Bootstrap any package services.
      *
@@ -58,7 +59,14 @@ class CanvasServiceProvider extends ServiceProvider
     {
         $events = $this->app->make(Dispatcher::class);
 
-        foreach ($this->events as $event => $listeners) {
+        $mappings = [
+            PostViewed::class => [
+                CaptureView::class,
+                CaptureVisit::class,
+            ],
+        ];
+
+        foreach ($mappings as $event => $listeners) {
             foreach ($listeners as $listener) {
                 $events->listen($event, $listener);
             }

@@ -10,75 +10,75 @@
         @tag="addTopic"
         label="name"
         track-by="slug"
-        style="cursor: pointer"
+        style="cursor: pointer;"
     />
 </template>
 
 <script>
-    import Multiselect from 'vue-multiselect'
+import Multiselect from 'vue-multiselect';
 
-    export default {
-        props: {
-            topics: {
-                type: Array,
-                required: false,
-            },
-            assigned: {
-                type: Object | Array,
-                required: false,
-            },
+export default {
+    props: {
+        topics: {
+            type: Array,
+            required: false,
+        },
+        assigned: {
+            type: [Object, Array],
+            required: false,
+        },
+    },
+
+    components: {
+        Multiselect,
+    },
+
+    data() {
+        const allTopics = this.topics.map((obj) => {
+            let filtered = {};
+
+            filtered['name'] = obj.name;
+            filtered['slug'] = obj.slug;
+
+            return filtered;
+        });
+
+        return {
+            options: allTopics,
+            value: this.assigned ? this.assigned : [],
+            trans: JSON.parse(window.Canvas.locale.translations),
+        };
+    },
+
+    methods: {
+        onChange(value) {
+            this.$store.dispatch('setPostTopic', value);
+
+            this.update();
         },
 
-        components: {
-            Multiselect,
+        addTopic(searchQuery) {
+            const topic = {
+                name: searchQuery,
+                slug: this.slugify(searchQuery),
+            };
+
+            this.options.push(topic);
+
+            this.value = {
+                name: topic.name,
+                slug: topic.slug,
+                user_id: window.Canvas.user.id,
+            };
+
+            this.$store.dispatch('setPostTopic', this.value);
+
+            this.update();
         },
 
-        data() {
-            const allTopics = this.topics.map(obj => {
-                let filtered = {}
-
-                filtered['name'] = obj.name
-                filtered['slug'] = obj.slug
-
-                return filtered
-            })
-
-            return {
-                options: allTopics,
-                value: this.assigned ? this.assigned : [],
-                trans: JSON.parse(Canvas.translations),
-            }
+        update() {
+            this.$parent.update();
         },
-
-        methods: {
-            onChange(value, id) {
-                this.$store.dispatch('setPostTopic', value)
-
-                this.update()
-            },
-
-            addTopic(searchQuery) {
-                const topic = {
-                    name: searchQuery,
-                    slug: this.slugify(searchQuery),
-                }
-
-                this.options.push(topic)
-
-                this.value = {
-                    name: topic.name,
-                    slug: topic.slug,
-                    user_id: Canvas.user.id
-                }
-
-                this.$store.dispatch('setPostTopic', this.value)
-
-                this.update()
-            },
-
-            update() {
-                this.$parent.update()
-            },
-        },
-    }
+    },
+};
 </script>

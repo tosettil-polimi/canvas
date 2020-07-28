@@ -7,7 +7,7 @@ use Canvas\Tests\TestCase;
 class RouteTest extends TestCase
 {
     /** @test */
-    public function named_route()
+    public function it_has_named_routes()
     {
         $this->assertEquals(
             url(config('canvas.path')),

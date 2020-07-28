@@ -1,4 +1,4 @@
-import $ from 'jquery'
+import $ from 'jquery';
 
 /**
  * The Tooltip directive provides simple tooltip functionality using the Bootstrap
@@ -37,17 +37,17 @@ const defaultOptions = {
     title: '',
     trigger: 'hover',
     offset: 0,
-}
+};
 
 const Tooltip = {
     bind(el, binding) {
         // Get the default configuration options
-        const customOptions = binding.value || {}
-        const options = { ...defaultOptions, ...customOptions }
+        const customOptions = binding.value || {};
+        const options = { ...defaultOptions, ...customOptions };
 
         // Initialize the Bootstrap tooltip
-        $(el).tooltip(options)
+        $(el).tooltip(options);
     },
-}
+};
 
-export default Tooltip
+export default Tooltip;

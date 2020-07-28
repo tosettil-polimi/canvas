@@ -1,65 +1,70 @@
-@import 'utilities/fonts';
-@import 'utilities/variables';
-@import "utilities/base";
-@import 'vendor-extensions/bootstrap';
+@import "utilities/variables";
+@import "themes/default";
+@import "themes/dark";
 
-$body-bg: $gray-100;
-$body-color: $gray-900;
+a, a:focus,
+input, input:focus,
+button, button:focus,
+select, select:focus,
+textarea, textarea:focus {
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
 
-$link-color: $body-color;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s !important;
+}
 
-$text-muted: $gray-500;
+input::-webkit-search-cancel-button {
+    display: none;
+}
 
-$dropdown-link-active-color: darken($gray-900, 5%);
-$dropdown-link-active-bg: $gray-100;
+.font-serif {
+    font-family: $font-family-serif;
+}
 
-$custom-control-indicator-bg: $text-muted;
+.font-sans {
+    font-family: $font-family-sans-serif;
+}
+
+.shadow-inset {
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+}
 
 .page-header {
-    background-color: $white;
+    background-color: transparent;
 }
 
-.controls {
-    background-color: $body-bg;
+.hover-light:hover {
+    opacity: .6;
 }
 
-.navbar-mini {
-    background-color: $white;
+.fill-light-red {
+    fill: $red-500;
 }
 
-.primary {
+.fill-dark-red {
+    fill: $red;
+}
+
+.fill-light-gray {
     fill: $gray-500;
 }
 
-.secondary {
+.fill-dark-gray {
     fill: $gray-700;
 }
 
-.logo-primary {
-    fill: $gray-500;
-}
-
-.logo-secondary {
-    fill: $gray-700;
-}
-
-.fill-bg {
-    fill: $white;
-}
-
-.fill-body-color {
-    fill: $body-color;
-}
-
-.row-hover {
-    background-color: $gray-100;
-}
-
-@import 'vendor-extensions/vue';
-@import 'vendor-extensions/nprogress';
-@import 'vendor-extensions/multiselect';
-@import 'vendor-extensions/switch';
-@import 'vendor-extensions/filepond';
+@import 'utilities/vue';
+@import 'utilities/nprogress';
+@import 'utilities/multiselect';
+@import 'utilities/switch';
+@import 'utilities/filepond';
 
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';

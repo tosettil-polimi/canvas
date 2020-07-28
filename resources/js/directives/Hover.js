@@ -6,15 +6,15 @@
  * @link https://codepen.io/koderdojo/pen/pwEGpX
  */
 const Hover = {
-    bind: function(el, binding, vnode) {
-        el.addEventListener('mouseenter', function() {
-            el.classList.add(binding.value.class)
+    bind: function (el, binding) {
+        el.addEventListener('mouseenter', function () {
+            el.classList.add(binding.value.class);
         });
 
-        el.addEventListener('mouseleave', function() {
-            el.classList.remove(binding.value.class)
+        el.addEventListener('mouseleave', function () {
+            el.classList.remove(binding.value.class);
         });
-    }
-}
+    },
+};
 
-export default Hover
+export default Hover;

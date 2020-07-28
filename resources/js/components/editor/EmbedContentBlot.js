@@ -1,26 +1,26 @@
-import Quill from 'quill'
+import Quill from 'quill';
 
-let BlockEmbed = Quill.import('blots/block/embed')
+let BlockEmbed = Quill.import('blots/block/embed');
 
 class EmbedContentBlot extends BlockEmbed {
     static create(value) {
-        let node = super.create()
+        let node = super.create();
 
-        node.innerHTML = value.content
-        node.setAttribute('contenteditable', false)
+        node.innerHTML = value.content;
+        node.setAttribute('contenteditable', false);
 
-        return node
+        return node;
     }
 
     static value(node) {
         return {
             content: node.innerHTML,
-        }
+        };
     }
 }
 
-EmbedContentBlot.tagName = 'div'
-EmbedContentBlot.blotName = 'embed-content'
-EmbedContentBlot.className = 'ql-embed-content'
+EmbedContentBlot.tagName = 'div';
+EmbedContentBlot.blotName = 'embed-content';
+EmbedContentBlot.className = 'ql-embed-content';
 
-export default EmbedContentBlot
+export default EmbedContentBlot;

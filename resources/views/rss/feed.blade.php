@@ -4,12 +4,12 @@
 ?>
 
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>{{ $feed['link'] }}</id>
-    <link rel="self" href="{{ $feed['link'] }}"/>
-    <title><![CDATA[ {{ $feed['name'] }} ]]></title>
-    <updated>{{ $feed['updated'] }}</updated>
+    <id>{{ $data['link'] }}</id>
+    <link rel="self" href="{{ $data['link'] }}"/>
+    <title><![CDATA[ {{ $data['name'] }} ]]></title>
+    <updated>{{ $data['updated'] }}</updated>
 
-    @foreach($feed['data'] as $post)
+    @foreach($data['data'] as $post)
         <entry>
             <title>{{ $post['title'] }}</title>
             <author>

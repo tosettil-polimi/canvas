@@ -11,13 +11,6 @@ use Illuminate\Support\Facades\Date;
 class Session
 {
     /**
-     * The number of seconds until a view expires.
-     *
-     * @const int
-     */
-    private const VIEW_EXPIRES_IN = 3600;
-
-    /**
      * Handle the incoming request.
      *
      * @param $request
@@ -45,7 +38,7 @@ class Session
      *
      * @return Collection
      */
-    private function getViewedPostsInSession()
+    private function getViewedPostsInSession(): Collection
     {
         return collect(session()->get('viewed_posts'));
     }
@@ -55,7 +48,7 @@ class Session
      *
      * @return Collection
      */
-    private function getVisitedPostsInSession()
+    private function getVisitedPostsInSession(): Collection
     {
         return collect(session()->get('visited_posts'));
     }
@@ -69,7 +62,7 @@ class Session
     private function pruneExpiredViews(Collection $posts)
     {
         foreach ($posts as $key => $value) {
-            if ($value < now()->subSeconds(self::VIEW_EXPIRES_IN)->timestamp) {
+            if ($value < now()->subSeconds(3600)->timestamp) {
                 session()->forget('viewed_posts.'.$key);
             }
         }

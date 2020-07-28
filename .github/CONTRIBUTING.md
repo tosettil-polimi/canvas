@@ -1,6 +1,7 @@
 # Contributing Guide
 
-Hi! I'm really excited that you are interested in contributing to Canvas. The following guide will help you get your environment set up to begin making changes.
+Hi! I'm really excited that you are interested in contributing to Canvas. The following guide will help you get
+ your environment set up to begin making changes.
 
 ## Table of Contents
 
@@ -26,7 +27,8 @@ composer-link() {composer config repositories.local '{"type": "path", "url": "'$
 
 ### Git
 
-Fork the project on [https://github.com/cnvs/canvas](https://github.com/cnvs/canvas) to your own account. Then clone the fork with the following command:
+Fork the project on [https://github.com/cnvs/canvas](https://github.com/cnvs/canvas) to your own account. Then clone
+ the fork with the following command:
 
 ```bash
 git clone https://github.com/your-account/canvas.git
@@ -84,7 +86,8 @@ php artisan storage:link
 php artisan canvas:ui
 ```
 
-Statistics are a core component to the app, so it's best to have a large dataset in place when developing. To generate some, add the following snippets to your Laravel app:
+Statistics are a core component to the app, so it's best to have a large dataset in place when developing. To
+ generate some, add the following snippets to your Laravel app:
 
 Create a new class named `CanvasTrackingDataSeeder` and add this to the `run()` method:
 
@@ -140,7 +143,8 @@ You can now run `php artisan db:seed` and you will have a substantial amount of 
 
 ### Developing
 
-Instead of making and compiling frontend changes in the package, then having to re-publish the assets in the Laravel app again and again, we can utilize a symlink: 
+Instead of making and compiling frontend changes in the package, then having to re-publish the assets in the
+ Laravel app again and again, we can utilize a symlink: 
 
 ```bash
 # remove the existing assets from the Laravel app
@@ -151,4 +155,5 @@ cd public/vendor/canvas
 ln -s ../../../../canvas/public/* .
 ```
 
-Once you've made your changes, [create a pull request](https://github.com/cnvs/canvas/compare) from your fork to the `develop` branch of the project repository.
+Once you've made your changes, [create a pull request](https://github.com/cnvs/canvas/compare) from your fork to
+ the `develop` branch of the project repository.

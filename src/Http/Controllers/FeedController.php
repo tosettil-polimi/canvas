@@ -2,8 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Feed;
-use Canvas\Post;
+use Canvas\Models\Post;
 use Illuminate\Routing\Controller;
 
 class FeedController extends Controller
@@ -15,14 +14,14 @@ class FeedController extends Controller
      */
     public function __invoke()
     {
-        $feed = Feed::make()
-                    ->as(config('app.name'))
-                    ->at(url(config('canvas.feed.path')))
-                    ->with(Post::published()->with('user')->get()->toArray())
-                    ->on(now()->toDateTimeString())
-                    ->get();
+        $data = [
+            'name' => config('app.name'),
+            'link' => url(config('canvas.feed.path')),
+            'data' => Post::published()->with('user')->get()->toArray(),
+            'updated' => now()->toDateTimeString(),
+        ];
 
-        $content = view('canvas::rss.feed', compact('feed'));
+        $content = view('canvas::rss.feed', compact('data'));
 
         return response($content, 200)->header('Content-Type', 'text/xml');
     }
