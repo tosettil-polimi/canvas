@@ -16,6 +16,18 @@
             font-family: "Karla", sans-serif;
         }
 
+        body {
+            color: #B2BDC4;
+        }
+
+        .bg-dark {
+            background-color: rgb(38, 50, 56);
+        }
+
+        .text-secondary {
+            color: rgb(176, 190, 196);
+        }
+
         .grid--gray {
             background-image: radial-gradient(#ddd 3px, transparent 3px);
             background-size: 24px 24px;
@@ -24,17 +36,13 @@
 </head>
 <body>
 <div>
-    <div class="bg-indigo-900 px-4 py-4">
+    <div class="bg-dark px-4 py-4">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
             <div class="flex justify-between items-center">
-                <a href="/" class="inline-block py-2 text-white text-xl font-bold">
-                    {{ _LOGO_ }}
-                </a>
+                <a href="/" class="inline-block py-2 text-white text-2xl font-bold"> Canvas </a>
             </div>
             <div class="flex justify-start items-center">
-                <a href="#" class="block flex justify-start items-center font-semibold py-1 md:py-4 text-gray-500 hover:text-gray-100 mr-6">
-                    v6.0.0
-                </a>
+                <a href="#" class="block flex justify-start items-center font-semibold py-1 md:py-4 text-gray-500 hover:text-gray-100 mr-6"> v6.0.0 </a>
                 <a href="#" class="inline-block font-semibold py-1 md:py-4 text-gray-500 hover:text-gray-100">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="fill-current w-6 h-6">
                         <path d="M0 12.305c0 5.435 3.438 10.047 8.207 11.674.6.113.82-.267.82-.593 0-.292-.011-1.066-.017-2.093-3.339.744-4.043-1.65-4.043-1.65-.545-1.42-1.332-1.798-1.332-1.798-1.09-.764.083-.749.083-.749 1.203.087 1.837 1.268 1.837 1.268 1.071 1.88 2.809 1.338 3.493 1.022.109-.795.42-1.337.762-1.645-2.665-.31-5.466-1.365-5.466-6.08 0-1.343.467-2.442 1.235-3.302-.123-.311-.535-1.562.117-3.256 0 0 1.008-.33 3.3 1.261a11.241 11.241 0 013.005-.414c1.019.005 2.046.141 3.004.414 2.29-1.592 3.297-1.261 3.297-1.261.654 1.694.242 2.945.119 3.256.77.86 1.234 1.959 1.234 3.302 0 4.726-2.806 5.767-5.48 6.071.431.38.815 1.13.815 2.279 0 1.645-.015 2.971-.015 3.375 0 .329.216.712.825.591 4.765-1.63 8.2-6.239 8.2-11.672C24 5.508 18.627 0 12 0S0 5.508 0 12.305z" fill-rule="evenodd"/>
@@ -44,31 +52,28 @@
         </div>
     </div>
 
-    <div class="bg-indigo-900 md:overflow-hidden">
+    <div class="bg-dark md:overflow-hidden">
         <div class="px-4 py-20 md:py-4">
             <div class="md:max-w-6xl md:mx-auto">
                 <div class="md:flex md:flex-wrap">
                     <div class="md:w-1/2 text-center md:text-left md:pt-16">
-                        <h1
-                            class="font-bold text-white text-2xl md:text-5xl leading-tight mb-4"
-                        >
+                        <h1 class="font-bold text-white text-3xl md:text-6xl leading-tight mb-4">
                             A <span style="font-family: 'Caveat', sans-serif">Laravel</span> publishing platform
                         </h1>
 
-                        <p class="text-indigo-200 md:text-xl md:pr-48">
+                        <p class="text-secondary md:text-xl md:pr-48">
                             Upgrade your existing application and give it the eloquent writing experience it deserves.
                         </p>
 
                         <a
                             href="https://github.com/austintoddj/canvas#installation"
-                            class="font-semibold mt-6 mb-12 md:mb-0 md:mt-10 inline-block py-3 px-8 text-white bg-red-500 hover:bg-red-600 rounded-lg shadow"
+                            class="font-semibold mt-6 mb-12 md:mb-0 md:mt-10 inline-block py-3 px-8 text-white bg-green-500 hover:bg-green-600 rounded-lg shadow"
                         >Get Started</a
-                        >
-                        <a
-                            href="https://github.com/austintoddj/canvas"
-                            class="font-semibold inline-block py-1 md:py-4 text-gray-500 hover:text-gray-100 ml-6"
-                        >Learn More</a
-                        >
+                        > <a
+                        href="https://github.com/austintoddj/canvas"
+                        class="font-semibold inline-block py-1 md:py-4 text-gray-500 hover:text-gray-100 ml-6"
+                    >Learn More</a
+                    >
                     </div>
                     <div class="md:w-1/2 relative">
                         <div class="hidden md:block">
@@ -109,7 +114,7 @@
                                 </div>
 
                                 <div class="text-gray-800 text-center">
-                                    Online <br/>Services
+                                    SEO <br/>optimization
                                 </div>
                             </div>
 
@@ -143,7 +148,7 @@
                                 </div>
 
                                 <div class="text-gray-800 text-center">
-                                    Easy organization
+                                    Unsplash integration
                                 </div>
                             </div>
 
@@ -174,7 +179,7 @@
                                 </div>
 
                                 <div class="text-gray-800 text-center">
-                                    Payment for <br/>Internet
+                                    Publication <br/>statistics
                                 </div>
                             </div>
 
@@ -350,13 +355,11 @@
                             >
                   <span
                       class="h-2 w-2 rounded-full bg-red-500 inline-block mr-1 ml-2"
-                  ></span>
-                                <span
-                                    class="h-2 w-2 rounded-full bg-orange-400 inline-block mr-1"
-                                ></span>
-                                <span
-                                    class="h-2 w-2 rounded-full bg-green-500 inline-block mr-1"
-                                ></span>
+                  ></span> <span
+                                class="h-2 w-2 rounded-full bg-orange-400 inline-block mr-1"
+                            ></span> <span
+                                class="h-2 w-2 rounded-full bg-green-500 inline-block mr-1"
+                            ></span>
                             </div>
                             <div class="w-32 bg-gray-100 px-2 py-8" style="height: 340px;">
                                 <div class="h-2 w-16 bg-gray-300 rounded-full mb-4"></div>
@@ -528,14 +531,10 @@
         </svg>
     </div>
 
-    <p class="text-center p-4 text-gray-600 pt-10">
+    <p class="text-center p-4 text-gray-600 py-10">
         Created by
-        <a class="border-b text-blue-500" href="https://github.com/austintoddj" target="_blank">
-            @austintoddj
-        </a>. Released under the
-        <a href="https://github.com/cnvs/canvas/blob/master/license" target="_blank" class="border-b text-blue-500">
-            MIT License
-        </a>
+        <a class="border-b text-blue-500" href="https://github.com/austintoddj" target="_blank"> @austintoddj </a>. Released under the
+        <a href="https://github.com/cnvs/canvas/blob/master/license" target="_blank" class="border-b text-blue-500"> MIT License </a>
     </p>
 </div>
 </body>
