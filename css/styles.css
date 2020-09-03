@@ -1,0 +1,28 @@
+* {
+    -webkit-tab-highlight-color: transparent;
+    font-family: "Karla", sans-serif;
+}
+
+body {
+    color: #B2BDC4;
+}
+
+.font-serif {
+    font-family: 'Merriweather', serif;
+}
+
+.font-cursive {
+    font-family: 'Caveat', cursive
+}
+
+.bg-dark {
+    background-color: rgb(38, 50, 56);
+}
+
+.bg-dark-gradient {
+    background: linear-gradient(to right, hsl(200, 19%, 19%), hsl(200, 19%, 21%));
+}
+
+.text-secondary {
+    color: rgb(176, 190, 196);
+}
