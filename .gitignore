@@ -1,5 +1,6 @@
 /node_modules
 /vendor
+/coverage
 /.idea
 /.vscode
 composer.lock
