@@ -25,7 +25,7 @@
 </head>
 <body class="antialiased">
 <div class="flex flex-col min-h-screen">
-    <div class="flex-1 bg-gray-100 md:bg-white">
+    <div class="flex-1 bg-gray-100 lg:bg-white">
         <div class="bg-dark px-4 py-4">
             <div class="max-w-6xl mx-auto flex items-center justify-between">
                 <div class="flex justify-between items-center">
@@ -41,7 +41,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-dark overflow-x-hidden">
+        <div class="bg-dark overflow-hidden">
             <div class="px-4 pt-10 pb-16 md:px-8 lg:pb-0">
                 <div class="md:max-w-6xl md:mx-auto">
                     <div class="md:flex md:flex-wrap">
@@ -75,7 +75,7 @@
 
                                 <div class="-ml-64 -mb-24 absolute left-0 bottom-0 w-12 bg-white rounded-lg h-12 bg-dark-gradient BOGUS" style="transform: rotate(-8deg);"></div>
 
-                                <div class="md:-mb-40 lg:-mb-48 lg:-ml-24 absolute z-10 left-0 bottom-0 w-40 bg-white rounded-lg shadow-lg px-6 py-8" style="transform: rotate(-8deg);">
+                                <div class="md:-mb-40 lg:-mb-40 xl:-mb-48 lg:-ml-24 absolute z-20 left-0 bottom-0 w-40 bg-white rounded-lg shadow-lg px-6 py-8" style="transform: rotate(-8deg);">
                                     <svg height="84" width="84" viewBox="0 0 20 20" class="mx-auto mb-5">
                                         <circle r="10" cx="10" cy="10" fill="#edf2f7"></circle>
                                         <circle r="5" cx="10" cy="10" fill="transparent" stroke="#cbd5e0" stroke-width="10" stroke-dasharray="11 31.4" transform="rotate(-90) translate(-20)"></circle>
@@ -87,10 +87,10 @@
                                     </div>
                                 </div>
 
-                                <div class="lg:mt-10 w-full absolute right-0 top-0 rounded-lg bg-white overflow-hidden shadow-lg" style="transform: rotate(-8deg); margin-right:-100px; z-index: 1;">
-                                    <div class="px-5 h-12 bg-white rounded-t-lg shadow flex justify-between items-center">
+                                <div class="w-full z-20 absolute right-0 top-0 rounded-lg bg-white overflow-hidden shadow-lg" style="transform: rotate(-8deg); margin-right:-100px; z-index: 1;">
+                                    <div class="px-5 h-12 bg-white rounded-t-lg shadow-sm flex justify-between items-center">
                                         <div>
-                                            <div class="h-4 bg-gray-300 rounded-lg w-32"></div>
+                                            <div class="h-3 bg-gray-300 rounded-lg w-32"></div>
                                         </div>
                                         <div class="items-center hidden lg:flex">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" class="icon-search"><circle cx="10" cy="10" r="7" style="fill: none"/><path style="fill: #edf2f7" d="M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/></svg>
@@ -134,16 +134,19 @@
                                         <div class="animate-pulse">
                                             <div class="space-y-4">
                                                 <div class="space-y-2">
+                                                    <div class="h-32 bg-gray-200 rounded-lg flex items-center justify-center">
+                                                        <svg class="fill-current w-16 h-16 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
+                                                        </svg>
+                                                    </div> 
+                                                </div>
+                                                <!-- <div class="space-y-2">
                                                     <div class="h-3 bg-gray-400 rounded-lg"></div>
                                                     <div class="h-3 bg-gray-300 rounded-lg w-5/6"></div>
-                                                </div>
+                                                </div> -->
                                                 <div class="space-y-2">
                                                     <div class="h-3 bg-gray-400 rounded-lg"></div>
                                                     <div class="h-3 bg-gray-300 rounded-lg w-5/6"></div>
-                                                </div>
-                                                <div class="space-y-2">
-                                                <div class="h-3 bg-gray-400 rounded-lg"></div>
-                                                <div class="h-3 bg-gray-300 rounded-lg w-5/6"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -155,9 +158,9 @@
                 </div>
             </div>
 
-            <svg class="fill-current text-gray-100 hidden lg:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 280">
+            <svg class="fill-current text-gray-100 hidden lg:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 290">
                 <path fill-opacity="1" d="M0,224L1440,32L1440,320L0,320Z"></path>
-            </svg>
+            </svg>   
         </div>
 
         <div class="mx-4 lg:hidden">
@@ -221,9 +224,9 @@
             </div>
         </div>
 
-        <div class="bg-gray-100 px-6 pt-10 md:pt-0 md:-mt-10 pb-0 md:pb-20">
+        <div class="bg-gray-100 px-6 pt-5 md:pt-16 lg:pt-6 pb-0 md:pb-20 xl:-mt-8">
             <div class="max-w-5xl mx-auto w-full">
-                <h2 class="text-center font-bold text-3xl md:text-4xl text-gray-800 pt-5 md:pt-24 mb-10 tracking-tighter">Packed with all the <span class="font-cursive text-gray-600 tracking-normal">right tools</span></h2>
+                <h2 class="text-center font-bold text-3xl md:text-4xl text-gray-800 mb-10 tracking-tighter">Packed with all the <span class="font-cursive text-gray-600 tracking-normal">right tools</span></h2>
 
                <div class="md:mb-4 px-6 w-full max-w-6xl mx-auto items-center flex flex-col md:flex-row md:space-x-4">
                     <div class="w-full md:w-1/2">
