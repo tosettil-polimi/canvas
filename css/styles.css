@@ -26,3 +26,8 @@ body {
 .text-secondary {
     color: rgb(176, 190, 196);
 }
+
+.grid--gray {
+    background-image: radial-gradient(#e2e8f0 3px, transparent 3px);
+    background-size: 24px 24px;
+}
